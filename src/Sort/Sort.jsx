@@ -3,6 +3,15 @@ import React from 'react'
 import '../scss/app.scss'
 
 export default function Sort() {
+    const itemsSort = ['популярности', 'цене', 'алфавиту']
+    const [openMenu, setOpenMenu] = React.useState(false)
+    const [selectedSort, setSelectedSort] = React.useState(itemsSort[0])
+
+    const handleClickSortItem = (name) => {
+        setSelectedSort(name)
+        setOpenMenu(false)
+    }
+
     return (
         <div className="sort">
             <div className="sort__label">
@@ -20,15 +29,27 @@ export default function Sort() {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span>популярности</span>
+                <span onClick={() => setOpenMenu(!openMenu)}>
+                    {selectedSort}
+                </span>
             </div>
-            <div className="sort__popup">
-                <ul>
-                    <li className="active">популярности</li>
-                    <li>цене</li>
-                    <li>алфавиту</li>
-                </ul>
-            </div>
+            {openMenu && (
+                <div className="sort__popup">
+                    <ul>
+                        {itemsSort.map((name) => (
+                            <li
+                                key={name}
+                                className={
+                                    name === selectedSort ? 'active' : ''
+                                }
+                                onClick={() => handleClickSortItem(name)}
+                            >
+                                {name}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     )
 }

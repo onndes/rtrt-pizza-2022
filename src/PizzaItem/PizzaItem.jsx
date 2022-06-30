@@ -2,29 +2,44 @@ import React from 'react'
 
 import '../scss/app.scss'
 
-export default function PizzaItem() {
+export default function PizzaItem({ title, imageUrl, types, sizes, price }) {
+    const [selectedSize, setSelectedSize] = React.useState(sizes[0])
+    const [selectedType, setSelectedType] = React.useState(types[0])
+
     return (
         <div className="pizza-block">
             <img
                 className="pizza-block__image"
-                // eslint-disable-next-line max-len
-                src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
+                src={imageUrl}
                 alt="Pizza"
             />
-            <h4 className="pizza-block__title">Чизбургер-пицца</h4>
+            <h4 className="pizza-block__title">{title}</h4>
             <div className="pizza-block__selector">
                 <ul>
-                    <li className="active">тонкое</li>
-                    <li>традиционное</li>
+                    {types.map((type) => (
+                        <li
+                            key={type}
+                            className={type === selectedType ? 'active' : ''}
+                            onClick={() => setSelectedType(type)}
+                        >
+                            {type === 0 ? 'тонкое' : 'традиционное'}
+                        </li>
+                    ))}
                 </ul>
                 <ul>
-                    <li className="active">26 см.</li>
-                    <li>30 см.</li>
-                    <li>40 см.</li>
+                    {sizes.map((size) => (
+                        <li
+                            key={size}
+                            className={size === selectedSize ? 'active' : ''}
+                            onClick={() => setSelectedSize(size)}
+                        >
+                            {size}
+                        </li>
+                    ))}
                 </ul>
             </div>
             <div className="pizza-block__bottom">
-                <div className="pizza-block__price">от 395 ₽</div>
+                <div className="pizza-block__price">от {price} ₴</div>
 
                 <div className="button button--outline button--add">
                     <svg
@@ -41,7 +56,7 @@ export default function PizzaItem() {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>2</i>
+                    <i>0</i>
                 </div>
             </div>
         </div>
