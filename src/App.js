@@ -7,6 +7,7 @@ import Sort from './Sort/Sort'
 import PizzaItem from './PizzaItem/PizzaItem'
 
 import pizzas from './assets/pizzas.json'
+import PizzaItemSkeleton from './PizzaItem/PizzaItemSkeleton'
 
 function App() {
     return (
@@ -19,10 +20,17 @@ function App() {
                         <Sort />
                     </div>
                     <h2 className="content__title">Все пиццы</h2>
+
                     <div className="content__items">
-                        {pizzas.map((pizza) => (
-                            <PizzaItem key={pizza.id} {...pizza} />
-                        ))}
+                        {pizzas.length > 0
+                            ? pizzas.map((pizza) => (
+                                  <PizzaItem key={pizza.id} {...pizza} />
+                              ))
+                            : [...new Array(8)].map((_, i) => (
+                                  // eslint-disable-next-line max-len
+                                  // eslint-disable-next-line react/no-array-index-key
+                                  <PizzaItemSkeleton key={i} />
+                              ))}
                     </div>
                 </div>
             </div>
