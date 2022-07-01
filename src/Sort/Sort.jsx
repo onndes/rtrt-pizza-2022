@@ -1,7 +1,5 @@
 import React from 'react'
 
-import '../scss/app.scss'
-
 export default function Sort() {
     const itemsSort = ['популярности', 'цене', 'алфавиту']
     const [openMenu, setOpenMenu] = React.useState(false)

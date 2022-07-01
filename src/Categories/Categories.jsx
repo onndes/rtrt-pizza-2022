@@ -1,7 +1,5 @@
 import React from 'react'
 
-import '../scss/app.scss'
-
 export default function Categories() {
     const [selectedCategoryIdx, setSelectedCategoryIdx] = React.useState(0)
     const categories = [
