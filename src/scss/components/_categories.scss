@@ -1,32 +1,58 @@
 @import '../variables';
 
 .categories {
-  ul {
-    display: flex;
+    ul {
+        display: flex;
+        button {
+            background-color: #f9f9f9;
+            padding: 13px 30px;
+            border-radius: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            transition: background-color 0.1s ease-in-out;
+            @include noselect();
 
-    button {
-      background-color: #f9f9f9;
-      padding: 13px 30px;
-      border-radius: 30px;
-      margin-right: 10px;
-      font-weight: bold;
-      font-size: 18px;
-      cursor: pointer;
-      transition: background-color 0.1s ease-in-out;
-      @include noselect();
+            &:hover {
+                background-color: darken(#f9f9f9, 2%);
+            }
 
-      &:hover {
-        background-color: darken(#f9f9f9, 2%);
-      }
+            &:active {
+                background-color: darken(#f9f9f9, 5%);
+            }
 
-      &:active {
-        background-color: darken(#f9f9f9, 5%);
-      }
-
-      &.active {
-        background-color: #282828;
-        color: #fff;
-      }
+            &.active {
+                background-color: #282828;
+                color: #fff;
+            }
+        }
     }
-  }
+    @media (max-width: 1400px) {
+        margin: 0px 0px 20px 0px;
+        ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(0, 200px));
+            grid-gap: 10px;
+            button {
+                margin-right: 0;
+            }
+        }
+    }
+    @media (max-width: 1023px) {
+        ul {
+            overflow: scroll;
+            max-height: 183px;
+            justify-content: center;
+        }
+    }
+    @media (max-width: 555px) {
+        ul {
+            overflow: scroll;
+            max-height: 155px;
+            justify-content: center;
+        }
+    }
+    @media (max-width: 570px) {
+        margin: 0px 0px 40px 0px;
+    }
 }

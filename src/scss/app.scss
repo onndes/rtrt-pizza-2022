@@ -1,6 +1,5 @@
 @import 'variables';
 @import 'libs/normalize';
-
 @import 'components/all';
 
 body {
@@ -19,12 +18,14 @@ body {
 .content {
     padding: 40px 0;
     &__title {
-        margin: 35px 0;
+        margin: 35px 0 15px 0;
     }
 
     &__items {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 280px));
+        grid-gap: 40px;
+        justify-content: center;
     }
 
     &__top {
@@ -32,6 +33,9 @@ body {
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
+        @media (max-width: 1400px) {
+            display: block;
+        }
     }
 }
 

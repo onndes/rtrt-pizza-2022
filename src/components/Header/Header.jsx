@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import pizzaLogo from '../assets/img/pizza-logo.svg'
+import pizzaLogo from '../../assets/img/pizza-logo.svg'
 
 export default function Header() {
     return (

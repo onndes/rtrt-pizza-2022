@@ -1,0 +1,12 @@
+.root {
+    margin: 0px 0px 25px 0px;
+    .input {
+        font-size: 18px;
+        padding: 7px 15px;
+        border-radius: 20px;
+        border: 1px solid lightgray;
+        :target {
+            border-color: grey;
+        }
+    }
+}

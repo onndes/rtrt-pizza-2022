@@ -1,32 +1,48 @@
 @import '../variables';
 
 .header {
-  border-bottom: 1px solid $gray-line;
-  padding: 40px 0;
+    border-bottom: 1px solid $gray-line;
+    padding: 40px 0;
 
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  &__logo {
-    display: flex;
-
-    img {
-      margin-right: 15px;
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
-    h1 {
-      color: #181818;
-      font-size: 24px;
-      letter-spacing: 1%;
-      text-transform: uppercase;
-      font-weight: 800;
-    }
+    &__logo {
+        display: flex;
 
-    p {
-      color: #7b7b7b;
+        img {
+            margin-right: 15px;
+        }
+
+        h1 {
+            color: #181818;
+            font-size: 24px;
+            letter-spacing: 1%;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        p {
+            color: #7b7b7b;
+        }
     }
-  }
+    @media (max-width: 690px) {
+        .container {
+            display: block;
+        }
+        &__logo {
+            margin: 0 auto 20px;
+            max-width: 318px;
+        }
+        &__cart {
+            max-width: 180px;
+            margin: auto;
+        }
+    }
+    @media (max-width: 992px) {
+        padding: 40px 0px 0px 0px;
+    }
 }
