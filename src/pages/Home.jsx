@@ -46,12 +46,12 @@ export default function Home() {
         let link = `https://62bdb91fc5ad14c110c5676f.mockapi.io/items?sortBy=${
             sortName[sort]
         }&order=${orderSort ? 'desc' : 'asc'}`
-
+        
         if (activeCategory !== 0) {
             link += `&category=${activeCategory}`
         }
         
-        // Optimize this
+        // !Optimize this
         if (search.length > 0) {
             link += `&search=${search}`
         }
@@ -60,6 +60,7 @@ export default function Home() {
             .then((response) => response.json())
             .then((data) => {
                 dispatch(setPizzas(data))
+                window.scroll(0, 0)
             })
     }, [activeCategory, sort, orderSort, dispatch, search])
 
@@ -70,7 +71,10 @@ export default function Home() {
             `https://62bdb91fc5ad14c110c5676f.mockapi.io/items/?sortBy=rating&order=desc`
         )
             .then((response) => response.json())
-            .then((data) => dispatch(setPizzas(data)))
+            .then((data) => {
+                dispatch(setPizzas(data))
+                window.scroll(0, 0)
+            })
     }, [dispatch])
 
     return (
