@@ -6,19 +6,19 @@ import PizzaItem from '../components/PizzaItem/PizzaItem'
 import PizzaItemSkeleton from '../components/PizzaItem/PizzaItemSkeleton'
 import Sort from '../components/Sort/Sort'
 import Search from '../components/Search/Search'
+import { setPizzas } from '../redux/slices/pizzaSlice'
 import {
     setActiveCategory,
     setOrderSort,
-    setPizzas,
     setSort,
-} from '../redux/slices/pizzaSlice'
+} from '../redux/slices/filterSlice'
 
 export default function Home() {
     const dispatch = useDispatch()
 
     const pizzas = useSelector(({ pizza }) => pizza.pizzas)
     const { activeCategory, sort, orderSort } = useSelector(
-        ({ pizza }) => pizza.filter
+        ({ filter }) => filter
     )
 
     const handleChangeCategory = (idx) => {
@@ -32,8 +32,6 @@ export default function Home() {
     const handleChangeOrderSort = () => {
         dispatch(setOrderSort(!orderSort))
     }
-
-
 
     // !TEMP fetch
     React.useEffect(() => {
