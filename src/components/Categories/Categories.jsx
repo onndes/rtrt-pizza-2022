@@ -1,7 +1,6 @@
 import React from 'react'
 
-export default function Categories() {
-    const [selectedCategoryIdx, setSelectedCategoryIdx] = React.useState(0)
+export default function Categories({ activeCategory, handleChangeCategory }) {
     const categories = [
         'Все',
         'Мясные',
@@ -18,8 +17,8 @@ export default function Categories() {
                     <button
                         type="button"
                         key={category}
-                        onClick={() => setSelectedCategoryIdx(idx)}
-                        className={idx === selectedCategoryIdx ? 'active' : ''}
+                        onClick={() => handleChangeCategory(idx)}
+                        className={idx === activeCategory ? 'active' : ''}
                     >
                         {category}
                     </button>
