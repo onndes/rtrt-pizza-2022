@@ -5,6 +5,7 @@ const initialState = {
     activeCategory: 0,
     orderSort: false,
     sort: 0,
+    search: '',
 }
 
 export const filterSlice = createSlice({
@@ -20,9 +21,13 @@ export const filterSlice = createSlice({
         setOrderSort: (state, action) => {
             state.orderSort = action.payload
         },
+        setSearch: (state, action) => {
+            state.search = action.payload
+        },
     },
 })
 
-export const { setActiveCategory, setSort, setOrderSort } = filterSlice.actions
+export const { setActiveCategory, setSort, setOrderSort, setSearch } =
+    filterSlice.actions
 
 export default filterSlice.reducer

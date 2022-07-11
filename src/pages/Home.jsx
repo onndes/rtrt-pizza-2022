@@ -11,13 +11,14 @@ import {
     setActiveCategory,
     setOrderSort,
     setSort,
+    setSearch,
 } from '../redux/slices/filterSlice'
 
 export default function Home() {
     const dispatch = useDispatch()
 
     const pizzas = useSelector(({ pizza }) => pizza.pizzas)
-    const { activeCategory, sort, orderSort } = useSelector(
+    const { activeCategory, sort, orderSort, search } = useSelector(
         ({ filter }) => filter
     )
 
@@ -33,6 +34,10 @@ export default function Home() {
         dispatch(setOrderSort(!orderSort))
     }
 
+    const handleChangeSearch = (inputData) => {
+        dispatch(setSearch(inputData))
+    }
+
     // !TEMP fetch
     React.useEffect(() => {
         const sortName = ['rating', 'price', 'title']
@@ -45,13 +50,18 @@ export default function Home() {
         if (activeCategory !== 0) {
             link += `&category=${activeCategory}`
         }
+        
+        // Optimize this
+        if (search.length > 0) {
+            link += `&search=${search}`
+        }
 
         fetch(link)
             .then((response) => response.json())
             .then((data) => {
                 dispatch(setPizzas(data))
             })
-    }, [activeCategory, sort, orderSort, dispatch])
+    }, [activeCategory, sort, orderSort, dispatch, search])
 
     // !TEMP fetch
     React.useEffect(() => {
@@ -78,7 +88,7 @@ export default function Home() {
                 />
             </div>
             <h2 className="content__title">Все пиццы</h2>
-            <Search />
+            <Search search={search} handleChangeSearch={handleChangeSearch} />
             <div className="content__items">
                 {pizzas.length > 0
                     ? pizzas.map((pizza) => (
