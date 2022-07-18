@@ -1,21 +1,34 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import debounce from 'lodash.debounce'
 
 import style from './Search.module.scss'
 import deleteIcon from '../../assets/img/delete-icon.svg'
+import { setSearch } from '../../redux/slices/filterSlice'
 
-export default function Search({ handleChangeSearch }) {
+export default function Search({ handleChangeCategory, activeCategory }) {
+    const dispatch = useDispatch()
     const [inputValue, setInputValue] = React.useState('')
 
-    const inputRef = React.useRef()
+    const inputRef = React.useRef(null)
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     const updateSearchInput = React.useCallback(
         debounce((str) => {
-            handleChangeSearch(str)
-        }, 400),
+            dispatch(setSearch(str))
+        }, 300),
         []
     )
+
+    React.useEffect(() => {
+        updateSearchInput(inputValue)
+    }, [inputValue])
+
+    React.useEffect(() => {
+        if (activeCategory !== 0) {
+            setInputValue('')
+            dispatch(setSearch(''))
+        }
+    }, [activeCategory])
 
     return (
         <div className={style.root}>
@@ -24,13 +37,14 @@ export default function Search({ handleChangeSearch }) {
                 value={inputValue}
                 placeholder="Поиск"
                 onChange={(e) => {
-                    updateSearchInput(inputValue)
                     setInputValue(e.target.value)
+                    handleChangeCategory(0)
                 }}
             />
             <img
                 onClick={() => {
-                    handleChangeSearch('')
+                    dispatch(setSearch(''))
+                    setInputValue('')
                     inputRef.current.focus()
                 }}
                 src={deleteIcon}

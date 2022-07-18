@@ -1,5 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import qs from 'qs'
 
 import Categories from '../components/Categories/Categories'
 import PizzaItem from '../components/PizzaItem/PizzaItem'
@@ -9,13 +11,15 @@ import Search from '../components/Search/Search'
 import { setPizzas } from '../redux/slices/pizzaSlice'
 import {
     setActiveCategory,
+    setFilterParams,
     setOrderSort,
     setSort,
-    setSearch,
 } from '../redux/slices/filterSlice'
 
 export default function Home() {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
+    const isMounted = React.useRef(false)
 
     const pizzas = useSelector(({ pizza }) => pizza.pizzas)
     const { activeCategory, sort, orderSort, search } = useSelector(
@@ -31,51 +35,58 @@ export default function Home() {
     }
 
     const handleChangeOrderSort = () => {
-        dispatch(setOrderSort(!orderSort))
+        dispatch(setOrderSort(orderSort === 'desc' ? 'asc' : 'desc'))
     }
 
-    const handleChangeSearch = (inputData) => {
-        dispatch(setSearch(inputData))
-    }
+    React.useEffect(() => {
+        if (window.location.search) {
+            const params = qs.parse(window.location.search.substring(1))
+
+            dispatch(
+                setFilterParams({
+                    ...params,
+                })
+            )
+            isMounted.current = true
+        }
+    }, [])
 
     // !TEMP fetch
     React.useEffect(() => {
         const sortName = ['rating', 'price', 'title']
+        const baseUrl = 'https://62bdb91fc5ad14c110c5676f.mockapi.io/'
 
         // eslint-disable-next-line max-len
-        let link = `https://62bdb91fc5ad14c110c5676f.mockapi.io/items?sortBy=${
-            sortName[sort]
-        }&order=${orderSort ? 'desc' : 'asc'}`
-        
+        let link = `${baseUrl}items?sortBy=${sortName[sort]}&order=${orderSort}&search=${search}`
+
         if (activeCategory !== 0) {
             link += `&category=${activeCategory}`
-        }
-        
-        // !Optimize this
-        if (search.length > 0) {
-            link += `&search=${search}`
         }
 
         fetch(link)
             .then((response) => response.json())
             .then((data) => {
                 dispatch(setPizzas(data))
-                window.scroll(0, 0)
             })
-    }, [activeCategory, sort, orderSort, dispatch, search])
+            .finally(() => {
+                isMounted.current = true
+            })
 
-    // !TEMP fetch
+        window.scroll(0, 0)
+    }, [activeCategory, sort, orderSort, search])
+
     React.useEffect(() => {
-        fetch(
-            // eslint-disable-next-line max-len
-            `https://62bdb91fc5ad14c110c5676f.mockapi.io/items/?sortBy=rating&order=desc`
-        )
-            .then((response) => response.json())
-            .then((data) => {
-                dispatch(setPizzas(data))
-                window.scroll(0, 0)
+        if (isMounted.current) {
+            const queryString = qs.stringify({
+                sort,
+                order: orderSort,
+                category: activeCategory,
             })
-    }, [dispatch])
+
+            navigate(`?${queryString}`)
+        }
+        isMounted.current = true
+    }, [activeCategory, sort, orderSort])
 
     return (
         <div className="container">
@@ -92,7 +103,10 @@ export default function Home() {
                 />
             </div>
             <h2 className="content__title">Все пиццы</h2>
-            <Search search={search} handleChangeSearch={handleChangeSearch} />
+            <Search
+                handleChangeCategory={handleChangeCategory}
+                activeCategory={activeCategory}
+            />
             <div className="content__items">
                 {pizzas.length > 0
                     ? pizzas.map((pizza) => (

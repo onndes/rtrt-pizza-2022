@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     activeCategory: 0,
-    orderSort: false,
     sort: 0,
+    orderSort: 'desc',
     search: '',
 }
 
@@ -24,10 +24,21 @@ export const filterSlice = createSlice({
         setSearch: (state, action) => {
             state.search = action.payload
         },
+        setFilterParams: (state, action) => {
+            const pl = action.payload
+            state.activeCategory = Number(pl.category)
+            state.sort = Number(pl.sort)
+            state.orderSort = pl.order
+        },
     },
 })
 
-export const { setActiveCategory, setSort, setOrderSort, setSearch } =
-    filterSlice.actions
+export const {
+    setActiveCategory,
+    setSort,
+    setOrderSort,
+    setSearch,
+    setFilterParams,
+} = filterSlice.actions
 
 export default filterSlice.reducer

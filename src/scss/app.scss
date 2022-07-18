@@ -24,7 +24,7 @@ body {
     &__items {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 280px));
-        grid-gap: 40px;
+        grid-gap: 30px;
         justify-content: left;
     }
 
