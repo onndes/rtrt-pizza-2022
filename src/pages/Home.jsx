@@ -19,7 +19,6 @@ import {
 export default function Home() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const isMounted = React.useRef(false)
 
     const pizzas = useSelector(({ pizza }) => pizza.pizzas)
     const { activeCategory, sort, orderSort, search } = useSelector(
@@ -47,7 +46,6 @@ export default function Home() {
                     ...params,
                 })
             )
-            isMounted.current = true
         }
     }, [])
 
@@ -68,24 +66,18 @@ export default function Home() {
             .then((data) => {
                 dispatch(setPizzas(data))
             })
-            .finally(() => {
-                isMounted.current = true
-            })
 
         window.scroll(0, 0)
     }, [activeCategory, sort, orderSort, search])
 
     React.useEffect(() => {
-        if (isMounted.current) {
-            const queryString = qs.stringify({
-                sort,
-                order: orderSort,
-                category: activeCategory,
-            })
+        const queryString = qs.stringify({
+            sort,
+            order: orderSort,
+            category: activeCategory,
+        })
 
-            navigate(`?${queryString}`)
-        }
-        isMounted.current = true
+        navigate(`?${queryString}`)
     }, [activeCategory, sort, orderSort])
 
     return (

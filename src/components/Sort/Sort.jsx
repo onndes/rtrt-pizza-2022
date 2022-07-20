@@ -8,12 +8,27 @@ export default function Sort({
 }) {
     const itemsSort = ['популярности', 'цене', 'алфавиту']
 
+    const sortRef = React.useRef()
     const [openMenu, setOpenMenu] = React.useState(false)
 
     const rotateDeg = orderSort ? 'rotate(180)' : 'rotate(0)'
 
+    React.useEffect(() => {
+        const handleClickOutMenu = (e) => {
+            if (!e.path.includes(sortRef.current)) {
+                setOpenMenu(false)
+            }
+        }
+
+        document.body.addEventListener('click', handleClickOutMenu)
+
+        return () => {
+            document.body.removeEventListener('click', handleClickOutMenu)
+        }
+    }, [])
+
     return (
-        <div className="sort">
+        <div className="sort" ref={sortRef}>
             <div className="sort__label">
                 <div
                     className="sort__svgWrapper"
