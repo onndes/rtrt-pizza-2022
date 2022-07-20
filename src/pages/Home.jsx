@@ -102,7 +102,7 @@ export default function Home() {
             <div className="content__items">
                 {pizzas.length > 0
                     ? pizzas.map((pizza) => (
-                          <PizzaItem key={pizza.id} {...pizza} />
+                          <PizzaItem key={pizza.id} {...pizza} pizza={pizza} />
                       ))
                     : [...new Array(8)].map((_, i) => (
                           // eslint-disable-next-line react/no-array-index-key

@@ -1,8 +1,19 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { addPizzaToCart } from '../../redux/slices/cartSlice'
 
 import '../../scss/app.scss'
 
-export default function PizzaItem({ title, imageUrl, types, sizes, price }) {
+export default function PizzaItem({
+    title,
+    imageUrl,
+    types,
+    sizes,
+    price,
+    pizza,
+}) {
+    const dispatch = useDispatch()
+
     const [selectedSize, setSelectedSize] = React.useState(sizes[0])
     const [selectedType, setSelectedType] = React.useState(types[0])
 
@@ -37,7 +48,18 @@ export default function PizzaItem({ title, imageUrl, types, sizes, price }) {
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {price} ₴</div>
 
-                <div className="button button--outline button--add">
+                <div
+                    className="button button--outline button--add"
+                    onClick={() => {
+                        dispatch(
+                            addPizzaToCart({
+                                ...pizza,
+                                selectedSize,
+                                selectedType,
+                            })
+                        )
+                    }}
+                >
                     <svg
                         width="12"
                         height="12"
