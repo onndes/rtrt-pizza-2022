@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import qs from 'qs'
 
-import Categories from '../components/Categories/Categories'
+import Categories from '../components/Categories'
 import PizzaItem from '../components/PizzaItem/PizzaItem'
 import PizzaItemSkeleton from '../components/PizzaItem/PizzaItemSkeleton'
-import Sort from '../components/Sort/Sort'
+import Sort from '../components/Sort'
 import Search from '../components/Search/Search'
 import { setPizzas } from '../redux/slices/pizzaSlice'
 import {
