@@ -1,29 +1,34 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addPizzaToCart } from '../../redux/slices/cartSlice'
 
 import '../../scss/app.scss'
 
-export default function PizzaItem({
-    title,
-    imageUrl,
-    types,
-    sizes,
-    price,
-    pizza,
-}) {
+export default function PizzaItem({ pizza }) {
     const dispatch = useDispatch()
 
-    const [selectedSize, setSelectedSize] = React.useState(sizes[0])
-    const [selectedType, setSelectedType] = React.useState(types[0])
+    const pizzasCart = useSelector(({ cart }) => cart.pizzas)
+    const [selectedSize, setSelectedSize] = React.useState(pizza.sizes[0])
+    const [selectedType, setSelectedType] = React.useState(pizza.types[0])
+
+    let countPizza = 0
+    pizzasCart.forEach((i) => {
+        if (i.pizza.id === pizza.id) {
+            countPizza += i.options.count
+        }
+    })
 
     return (
         <div className="pizza-block">
-            <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-            <h4 className="pizza-block__title">{title}</h4>
+            <img
+                className="pizza-block__image"
+                src={pizza.imageUrl}
+                alt="Pizza"
+            />
+            <h4 className="pizza-block__title">{pizza.title}</h4>
             <div className="pizza-block__selector">
                 <ul>
-                    {types.map((type) => (
+                    {pizza.types.map((type) => (
                         <li
                             key={type}
                             className={type === selectedType ? 'active' : ''}
@@ -34,7 +39,7 @@ export default function PizzaItem({
                     ))}
                 </ul>
                 <ul>
-                    {sizes.map((size) => (
+                    {pizza.sizes.map((size) => (
                         <li
                             key={size}
                             className={size === selectedSize ? 'active' : ''}
@@ -46,7 +51,7 @@ export default function PizzaItem({
                 </ul>
             </div>
             <div className="pizza-block__bottom">
-                <div className="pizza-block__price">от {price} ₴</div>
+                <div className="pizza-block__price">от {pizza.price} ₴</div>
 
                 <div
                     className="button button--outline button--add"
@@ -74,7 +79,7 @@ export default function PizzaItem({
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>0</i>
+                    <i>{countPizza}</i>
                 </div>
             </div>
         </div>

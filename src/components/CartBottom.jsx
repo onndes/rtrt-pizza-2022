@@ -1,15 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function CartBottom() {
+export default function CartBottom({ countPizzas, totalAmount }) {
     return (
         <div className="cart__bottom">
             <div className="cart__bottom-details">
                 <span>
-                    Всего пицц: <b>3 шт.</b>
+                    Всего пицц: <b>{countPizzas} шт.</b>
                 </span>
                 <span>
-                    Сумма заказа: <b>900 ₽</b>
+                    Сумма заказа: <b>{totalAmount} ₴</b>
                 </span>
             </div>
             <div className="cart__bottom-buttons">

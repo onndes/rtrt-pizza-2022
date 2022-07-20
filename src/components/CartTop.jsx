@@ -1,7 +1,12 @@
 /* eslint-disable max-len */
 import React from 'react'
+import { useDispatch } from 'react-redux'
+
+import { clearCart } from '../redux/slices/cartSlice'
 
 export default function CartTop() {
+    const dispatch = useDispatch()
+
     return (
         <div className="cart__top">
             <h2 className="content__title">
@@ -36,7 +41,7 @@ export default function CartTop() {
                 </svg>
                 Корзина
             </h2>
-            <div className="cart__clear">
+            <div className="cart__clear" onClick={() => dispatch(clearCart())}>
                 <svg
                     width="20"
                     height="20"

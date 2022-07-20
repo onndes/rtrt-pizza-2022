@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { Provider } from 'react-redux'
 
 const initialState = {
     pizzas: [],
@@ -47,9 +46,36 @@ export const cartSlice = createSlice({
             state.countPizzas = 0
             state.totalAmount = 0
         },
+        addSamePizza: (state, action) => {
+            state.pizzas[action.payload].options.count += 1
+            state.countPizzas += 1
+            state.totalAmount += state.pizzas[action.payload].pizza.price
+        },
+        removeSamePizza: (state, action) => {
+            state.countPizzas -= 1
+            state.totalAmount -= state.pizzas[action.payload].pizza.price
+            if (state.pizzas[action.payload].options.count > 1) {
+                state.pizzas[action.payload].options.count -= 1
+            } else {
+                state.pizzas.splice(action.payload, 1)
+            }
+        },
+        removePizza: (state, action) => {
+            state.totalAmount -=
+                state.pizzas[action.payload].pizza.price *
+                state.pizzas[action.payload].options.count
+            state.countPizzas -= state.pizzas[action.payload].options.count
+            state.pizzas.splice(action.payload, 1)
+        },
     },
 })
 
-export const { addPizzaToCart, clearCart } = cartSlice.actions
+export const {
+    addPizzaToCart,
+    clearCart,
+    addSamePizza,
+    removeSamePizza,
+    removePizza,
+} = cartSlice.actions
 
 export default cartSlice.reducer
