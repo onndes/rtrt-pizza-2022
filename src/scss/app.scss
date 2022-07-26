@@ -17,6 +17,27 @@ body {
 
 .content {
     padding: 40px 0;
+
+    &__error {
+        text-align: center;
+
+        h2 {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        &--message {
+            font-size: 20px;
+            font-weight: 500;
+            color: #777777;
+        }
+    }
+
     &__title {
         margin: 35px 0 15px 0;
     }

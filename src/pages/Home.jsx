@@ -8,7 +8,7 @@ import PizzaItem from '../components/PizzaItem/PizzaItem'
 import PizzaItemSkeleton from '../components/PizzaItem/PizzaItemSkeleton'
 import Sort from '../components/Sort'
 import Search from '../components/Search/Search'
-import { setPizzas } from '../redux/slices/pizzaSlice'
+import { fetchPizzas } from '../redux/slices/pizzaSlice'
 import {
     setActiveCategory,
     setFilterParams,
@@ -20,7 +20,7 @@ export default function Home() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const pizzas = useSelector(({ pizza }) => pizza.pizzas)
+    const { pizzas, isLoading, error } = useSelector(({ pizza }) => pizza)
     const { activeCategory, sort, orderSort, search } = useSelector(
         ({ filter }) => filter
     )
@@ -49,23 +49,17 @@ export default function Home() {
         }
     }, [])
 
-    // !TEMP fetch
     React.useEffect(() => {
         const sortName = ['rating', 'price', 'title']
-        const baseUrl = 'https://62bdb91fc5ad14c110c5676f.mockapi.io/'
 
-        // eslint-disable-next-line max-len
-        let link = `${baseUrl}items?sortBy=${sortName[sort]}&order=${orderSort}&search=${search}`
-
-        if (activeCategory !== 0) {
-            link += `&category=${activeCategory}`
-        }
-
-        fetch(link)
-            .then((response) => response.json())
-            .then((data) => {
-                dispatch(setPizzas(data))
+        dispatch(
+            fetchPizzas({
+                sortName: sortName[sort],
+                orderSort,
+                search,
+                activeCategory,
             })
+        )
 
         window.scroll(0, 0)
     }, [activeCategory, sort, orderSort, search])
@@ -99,16 +93,33 @@ export default function Home() {
                 handleChangeCategory={handleChangeCategory}
                 activeCategory={activeCategory}
             />
-            <div className="content__items">
-                {pizzas.length > 0
-                    ? pizzas.map((pizza) => (
-                          <PizzaItem key={pizza.id} {...pizza} pizza={pizza} />
-                      ))
-                    : [...new Array(8)].map((_, i) => (
-                          // eslint-disable-next-line react/no-array-index-key
-                          <PizzaItemSkeleton key={i} />
-                      ))}
-            </div>
+            {!error ? (
+                <div className="content__items">
+                    {!isLoading
+                        ? pizzas.map((pizza) => (
+                              <PizzaItem
+                                  key={pizza.id}
+                                  {...pizza}
+                                  pizza={pizza}
+                              />
+                          ))
+                        : [...new Array(8)].map((_, i) => (
+                              <PizzaItemSkeleton key={i} />
+                          ))}
+                </div>
+            ) : (
+                <div className="content__error">
+                    <h2>
+                        Произошла ошибка <icon>😕</icon>
+                    </h2>
+                    <p>Не удалось получить пиццы, попробуйте позже</p>
+                    {error.message && (
+                        <p className="content__error--message">
+                            Ошибка: {error.message}
+                        </p>
+                    )}
+                </div>
+            )}
         </div>
     )
 }

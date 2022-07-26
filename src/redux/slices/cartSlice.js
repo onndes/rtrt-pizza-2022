@@ -17,6 +17,7 @@ export const cartSlice = createSlice({
                 ]
             } else {
                 let isAdd = false
+                
                 state.pizzas.map((i) => {
                     const repeatCheck =
                         i.pizza.id === action.payload.id &&
@@ -31,6 +32,7 @@ export const cartSlice = createSlice({
 
                     return i
                 })
+                
                 if (!isAdd) {
                     state.pizzas.push({
                         pizza: action.payload,

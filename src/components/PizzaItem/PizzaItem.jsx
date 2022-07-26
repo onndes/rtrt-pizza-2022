@@ -2,8 +2,6 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addPizzaToCart } from '../../redux/slices/cartSlice'
 
-import '../../scss/app.scss'
-
 export default function PizzaItem({ pizza }) {
     const dispatch = useDispatch()
 
