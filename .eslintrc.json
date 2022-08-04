@@ -4,28 +4,33 @@
     "es2021": true
   },
   "extends": [
-    "plugin:react/recommended",
     "airbnb",
+    "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": "latest",
+    "ecmaVersion": 12,
     "sourceType": "module"
   },
   "plugins": [
     "react",
+    "@typescript-eslint",
     "react-hooks"
   ],
   "rules": {
     "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": [
+      "error"
+    ],
     "react/jsx-filename-extension": [
       "warn",
       {
         "extensions": [
-          ".js",
+          ".tsx",
           ".jsx"
         ]
       }
@@ -34,19 +39,25 @@
       "error",
       "ignorePackages",
       {
-        "js": "never",
-        "jsx": "never",
         "ts": "never",
-        "tsx": "never"
-      }
-    ],
-    "max-len": [
-      "warn",
-      {
-        "code": 80
+        "tsx": "never",
+        "js": "never",
+        "jsx": "never"
       }
     ],
     "no-shadow": "off",
+    "@typescript-eslint/no-shadow": [
+      "error"
+    ],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "max-len": [
+      "warn",
+      {
+        "code": 80,
+        "ignoreUrls": true,
+        "ignorePattern": "d=\"([\\s\\S]*?)\""
+      }
+    ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "off",
     "import/prefer-default-export": "off",
@@ -66,11 +77,22 @@
       }
     ],
     "eol-last": "warn",
-    "react/jsx-props-no-spreading": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/no-noninteractive-element-interactions": "off",
     "jsx-a11y/no-static-element-interactions": "off",
+    "@typescript-eslint/no-explicit-any": [
+      "error",
+      {
+        "ignoreRestArgs": true
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
     "react/no-array-index-key": "off",
-    "no-unused-vars": "warn"
+    "@typescript-eslint/no-non-null-assertion": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
   }
 }
