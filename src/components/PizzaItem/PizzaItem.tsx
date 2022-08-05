@@ -1,15 +1,27 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addPizzaToCart } from '../../redux/slices/cartSlice'
 
-export default function PizzaItem({ pizza }) {
+import { PizzaType } from '../../@types/types'
+import { addPizzaToCart, selectCartItems } from '../../redux/slices/cartSlice'
+
+type PizzaItemProps = {
+    pizza: PizzaType
+}
+
+const PizzaItem: React.FC<PizzaItemProps> = ({ pizza }) => {
     const dispatch = useDispatch()
 
-    const pizzasCart = useSelector(({ cart }) => cart.pizzas)
-    const [selectedSize, setSelectedSize] = React.useState(pizza.sizes[0])
-    const [selectedType, setSelectedType] = React.useState(pizza.types[0])
+    const pizzasCart = useSelector(selectCartItems)
+
+    const [selectedSize, setSelectedSize] = React.useState<number>(
+        pizza.sizes[0]
+    )
+    const [selectedType, setSelectedType] = React.useState<number>(
+        pizza.types[0]
+    )
 
     let countPizza = 0
+
     pizzasCart.forEach((i) => {
         if (i.pizza.id === pizza.id) {
             countPizza += i.options.count
@@ -83,3 +95,5 @@ export default function PizzaItem({ pizza }) {
         </div>
     )
 }
+
+export default PizzaItem

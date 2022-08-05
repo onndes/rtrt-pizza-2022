@@ -1,10 +1,7 @@
 import React from 'react'
-
 import './scss/app.scss'
 import MyRoutes from './pages/Routes'
 
-function App() {
-    return <MyRoutes />
-}
+const App: React.FC = () => <MyRoutes />
 
 export default App

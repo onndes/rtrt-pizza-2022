@@ -1,10 +1,9 @@
-/* eslint-disable max-len */
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
 import { clearCart } from '../redux/slices/cartSlice'
 
-export default function CartTop() {
+const CartTop: React.FC = () => {
     const dispatch = useDispatch()
 
     return (
@@ -83,3 +82,5 @@ export default function CartTop() {
         </div>
     )
 }
+
+export default CartTop

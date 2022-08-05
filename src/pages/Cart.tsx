@@ -1,23 +1,24 @@
-/* eslint-disable max-len */
 import React from 'react'
-import { useSelector } from 'react-redux'
 
 import CartBottom from '../components/CartBottom'
 import CartItems from '../components/CartItems'
 import CartTop from '../components/CartTop'
+import { useAppSelector } from '../hooks/useAppSelector'
 import CartEmpty from './CartEmpty'
 
-export default function Cart() {
-    const { countPizzas, totalAmount, pizzas } = useSelector(({ cart }) => cart)
+const Cart: React.FC = () => {
+    const { countPizzas, totalAmount, cartItems } = useAppSelector(
+        ({ cart }) => cart
+    )
 
     return (
         <>
-            {pizzas.length > 0 ? (
+            {cartItems.length > 0 ? (
                 <div className="container container--cart">
                     <div className="cart">
                         <CartTop />
                         <div className="content__itemsCart">
-                            <CartItems pizzas={pizzas} />
+                            <CartItems pizzas={cartItems} />
                         </div>
                         <CartBottom
                             countPizzas={countPizzas}
@@ -31,3 +32,5 @@ export default function Cart() {
         </>
     )
 }
+
+export default Cart

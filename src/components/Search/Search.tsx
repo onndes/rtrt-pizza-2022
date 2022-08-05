@@ -6,14 +6,19 @@ import style from './Search.module.scss'
 import deleteIcon from '../../assets/img/delete-icon.svg'
 import { setSearch } from '../../redux/slices/filterSlice'
 
-export default function Search({ handleChangeCategory, activeCategory }) {
+type Search = {
+    handleChangeCategory: (category: number) => void
+    activeCategory: number
+}
+
+const Search: React.FC<Search> = ({ handleChangeCategory, activeCategory }) => {
     const dispatch = useDispatch()
     const [inputValue, setInputValue] = React.useState('')
 
-    const inputRef = React.useRef(null)
+    const inputRef = React.useRef<HTMLInputElement>(null)
 
     const updateSearchInput = React.useCallback(
-        debounce((str) => {
+        debounce((str: string) => {
             dispatch(setSearch(str))
         }, 300),
         []
@@ -36,7 +41,7 @@ export default function Search({ handleChangeCategory, activeCategory }) {
                 ref={inputRef}
                 value={inputValue}
                 placeholder="Поиск"
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setInputValue(e.target.value)
                     handleChangeCategory(0)
                 }}
@@ -45,7 +50,7 @@ export default function Search({ handleChangeCategory, activeCategory }) {
                 onClick={() => {
                     dispatch(setSearch(''))
                     setInputValue('')
-                    inputRef.current.focus()
+                    inputRef.current?.focus()
                 }}
                 src={deleteIcon}
                 alt=""
@@ -55,3 +60,5 @@ export default function Search({ handleChangeCategory, activeCategory }) {
         </div>
     )
 }
+
+export default Search

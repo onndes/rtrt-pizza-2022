@@ -1,6 +1,14 @@
 import React from 'react'
 
-export default function Categories({ activeCategory, handleChangeCategory }) {
+type CategoriesTypes = {
+    activeCategory: number
+    handleChangeCategory: (categoryIdx: number) => void
+}
+
+const Categories: React.FC<CategoriesTypes> = ({
+    activeCategory,
+    handleChangeCategory,
+}) => {
     const categories = [
         'Все',
         'Мясные',
@@ -27,3 +35,5 @@ export default function Categories({ activeCategory, handleChangeCategory }) {
         </div>
     )
 }
+
+export default Categories

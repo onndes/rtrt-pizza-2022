@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import qs from 'qs'
 
@@ -15,35 +14,52 @@ import {
     setOrderSort,
     setSort,
 } from '../redux/slices/filterSlice'
+import { PizzaType } from '../@types/types'
+import { useAppSelector } from '../hooks/useAppSelector'
+import { useAppDispatch } from '../redux/store'
+import { OrderSortEnum } from '../@types/enum'
 
-export default function Home() {
+const Home: React.FC = () => {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
-    const { pizzas, isLoading, error } = useSelector(({ pizza }) => pizza)
-    const { activeCategory, sort, orderSort, search } = useSelector(
+    const { pizzas, isLoading, error } = useAppSelector(({ pizza }) => pizza)
+
+    const { activeCategory, sort, orderSort, search } = useAppSelector(
         ({ filter }) => filter
     )
 
-    const handleChangeCategory = (idx) => {
+    const handleChangeCategory = (idx: number) => {
         dispatch(setActiveCategory(idx))
     }
 
-    const handleChangeSort = (idxSort) => {
+    const handleChangeSort = (idxSort: number) => {
         dispatch(setSort(idxSort))
     }
 
     const handleChangeOrderSort = () => {
-        dispatch(setOrderSort(orderSort === 'desc' ? 'asc' : 'desc'))
+        dispatch(
+            setOrderSort(
+                orderSort === OrderSortEnum.DESC
+                    ? OrderSortEnum.ASC
+                    : OrderSortEnum.DESC
+            )
+        )
     }
 
     React.useEffect(() => {
         if (window.location.search) {
             const params = qs.parse(window.location.search.substring(1))
+            const os: OrderSortEnum =
+                params.order === 'undefined'
+                    ? OrderSortEnum.DESC
+                    : OrderSortEnum.ASC
 
             dispatch(
                 setFilterParams({
-                    ...params,
+                    activeCategory: Number(params.category),
+                    sort: Number(params.sort),
+                    orderSort: os,
                 })
             )
         }
@@ -96,12 +112,8 @@ export default function Home() {
             {!error ? (
                 <div className="content__items">
                     {!isLoading
-                        ? pizzas.map((pizza) => (
-                              <PizzaItem
-                                  key={pizza.id}
-                                  {...pizza}
-                                  pizza={pizza}
-                              />
+                        ? pizzas.map((pizza: PizzaType) => (
+                              <PizzaItem key={pizza.id} pizza={pizza} />
                           ))
                         : [...new Array(8)].map((_, i) => (
                               <PizzaItemSkeleton key={i} />
@@ -109,9 +121,7 @@ export default function Home() {
                 </div>
             ) : (
                 <div className="content__error">
-                    <h2>
-                        Произошла ошибка <icon>😕</icon>
-                    </h2>
+                    <h2>Произошла ошибка 😕</h2>
                     <p>Не удалось получить пиццы, попробуйте позже</p>
                     {error.message && (
                         <p className="content__error--message">
@@ -124,4 +134,4 @@ export default function Home() {
     )
 }
 
-
+export default Home

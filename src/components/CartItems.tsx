@@ -1,6 +1,6 @@
-/* eslint-disable max-len */
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { PizzaCartType } from '../@types/types'
 
 import {
     addSamePizza,
@@ -8,23 +8,30 @@ import {
     removeSamePizza,
 } from '../redux/slices/cartSlice'
 
-export default function CartItems({ pizzas }) {
+type CartItemsTypes = {
+    pizzas: {
+        pizza: PizzaCartType
+        options: { count: number }
+    }[]
+}
+
+const CartItems: React.FC<CartItemsTypes> = ({ pizzas }) => {
     const dispatch = useDispatch()
 
-    const handleClickAddPizza = (idx) => {
+    const handleClickAddPizza = (idx: number) => {
         dispatch(addSamePizza(idx))
     }
-    const handleClickRemovePizza = (idx) => {
+    const handleClickRemovePizza = (idx: number) => {
         dispatch(removeSamePizza(idx))
     }
-    const handleClickRemoveItemPizza = (idx) => {
+    const handleClickRemoveItemPizza = (idx: number) => {
         dispatch(removePizza(idx))
     }
 
     return (
         <>
-            {pizzas.map(({ pizza, options }, idx) => (
-                <div className="cart__item">
+            {pizzas.map(({ pizza, options }, idx: number) => (
+                <div className="cart__item" key={pizza.id}>
                     <div className="cart__item-img">
                         <img
                             className="pizza-block__image"
@@ -35,7 +42,7 @@ export default function CartItems({ pizzas }) {
                     <div className="cart__item-info">
                         <h3>{pizza.title}</h3>
                         <p>
-                            {pizza.selectedType ? 'традиционное' : 'тонкое'}{' '}
+                            {pizza.selectedType ? 'традиционное ' : 'тонкое '}
                             тесто, {pizza.selectedSize}
                             см.
                         </p>
@@ -43,7 +50,8 @@ export default function CartItems({ pizzas }) {
                     <div className="cart__item-count">
                         <div
                             onClick={() => handleClickRemovePizza(idx)}
-                            className="button button--outline button--circle cart__item-count-minus"
+                            className="button button--outline 
+                                       button--circle cart__item-count-minus"
                         >
                             <svg
                                 width="10"
@@ -65,7 +73,8 @@ export default function CartItems({ pizzas }) {
                         <b>{options.count}</b>
                         <div
                             onClick={() => handleClickAddPizza(idx)}
-                            className="button button--outline button--circle cart__item-count-plus"
+                            className="button button--outline 
+                                       button--circle cart__item-count-plus"
                         >
                             <svg
                                 width="10"
@@ -116,3 +125,5 @@ export default function CartItems({ pizzas }) {
         </>
     )
 }
+
+export default CartItems

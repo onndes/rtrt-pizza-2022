@@ -1,21 +1,32 @@
 import React from 'react'
 
-export default function Sort({
+type SortProps = {
+    sort: number
+    handleChangeSort: (sortIdx: number) => void
+    orderSort: string
+    handleChangeOrderSort: () => void
+}
+
+const Sort: React.FC<SortProps> = ({
     sort,
     handleChangeSort,
     orderSort,
     handleChangeOrderSort,
-}) {
+}) => {
     const itemsSort = ['популярности', 'цене', 'алфавиту']
 
-    const sortRef = React.useRef()
+    const sortRef = React.useRef<HTMLDivElement>(null)
     const [openMenu, setOpenMenu] = React.useState(false)
 
     const rotateDeg = orderSort ? 'rotate(180)' : 'rotate(0)'
 
     React.useEffect(() => {
-        const handleClickOutMenu = (e) => {
-            if (!e.path.includes(sortRef.current)) {
+        const handleClickOutMenu = (e: MouseEvent) => {
+            const event = e as MouseEvent & {
+                path: Node[]
+            }
+
+            if (sortRef.current && !event.path.includes(sortRef.current)) {
                 setOpenMenu(false)
             }
         }
@@ -75,3 +86,5 @@ export default function Sort({
         </div>
     )
 }
+
+export default Sort
