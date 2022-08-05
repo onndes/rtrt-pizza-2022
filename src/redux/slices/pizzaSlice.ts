@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import axios, { AxiosError } from 'axios'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 import { PizzaType } from '../../@types/types'
 
 type FetchPizzasParams = {

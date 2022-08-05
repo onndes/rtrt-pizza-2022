@@ -1,8 +1,8 @@
-/* eslint-disable max-len */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 import { OrderSortEnum } from '../../@types/enum'
 
-type FilterParams = {
+type FilterParamsType = {
     activeCategory: number
     sort: number
     orderSort: OrderSortEnum
@@ -38,7 +38,7 @@ export const filterSlice = createSlice({
         setSearch: (state, action: PayloadAction<string>) => {
             state.search = action.payload
         },
-        setFilterParams: (state, action: PayloadAction<FilterParams>) => {
+        setFilterParams: (state, action: PayloadAction<FilterParamsType>) => {
             state.activeCategory = action.payload.activeCategory
             state.sort = action.payload.sort
             state.orderSort = action.payload.orderSort

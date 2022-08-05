@@ -13,3 +13,8 @@ export interface PizzaCartType extends PizzaType {
     selectedType: number
     selectedSize: number
 }
+
+export type CartItemType = {
+    pizza: PizzaCartType
+    options: { count: number }
+}

@@ -1,12 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { PizzaCartType } from '../../@types/types'
 
+import { CartItemType, PizzaCartType } from '../../@types/types'
 import { RootState } from '../store'
-
-type CartItemType = {
-    pizza: PizzaCartType
-    options: { count: number }
-}
 
 interface CartSliceState {
     cartItems: CartItemType[]

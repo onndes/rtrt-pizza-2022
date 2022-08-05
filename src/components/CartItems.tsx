@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { PizzaCartType } from '../@types/types'
+import { CartItemType } from '../@types/types'
 
 import {
     addSamePizza,
@@ -8,12 +8,7 @@ import {
     removeSamePizza,
 } from '../redux/slices/cartSlice'
 
-type CartItemsTypes = {
-    pizzas: {
-        pizza: PizzaCartType
-        options: { count: number }
-    }[]
-}
+type CartItemsTypes = { pizzas: CartItemType[] }
 
 const CartItems: React.FC<CartItemsTypes> = ({ pizzas }) => {
     const dispatch = useDispatch()
