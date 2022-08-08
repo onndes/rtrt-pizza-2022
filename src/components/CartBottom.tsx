@@ -6,7 +6,7 @@ type CartBottomProps = {
     totalAmount: number
 }
 
-const CartBottom: React.FC<CartBottomProps> = ({
+export const CartBottom: React.FC<CartBottomProps> = ({
     countPizzas,
     totalAmount,
 }) => (
@@ -50,5 +50,3 @@ const CartBottom: React.FC<CartBottomProps> = ({
         </div>
     </div>
 )
-
-export default CartBottom

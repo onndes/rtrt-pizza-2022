@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { CartItemType } from '../@types/types'
 
+import { CartItemType } from '../@types/types'
 import {
     addSamePizza,
     removePizza,
@@ -10,7 +10,7 @@ import {
 
 type CartItemsTypes = { pizzas: CartItemType[] }
 
-const CartItems: React.FC<CartItemsTypes> = ({ pizzas }) => {
+export const CartItems: React.FC<CartItemsTypes> = ({ pizzas }) => {
     const dispatch = useDispatch()
 
     const handleClickAddPizza = (idx: number) => {
@@ -120,5 +120,3 @@ const CartItems: React.FC<CartItemsTypes> = ({ pizzas }) => {
         </>
     )
 }
-
-export default CartItems

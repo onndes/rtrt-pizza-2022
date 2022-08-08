@@ -1,10 +1,8 @@
 import React from 'react'
 
-import CartBottom from '../components/CartBottom'
-import CartItems from '../components/CartItems'
-import CartTop from '../components/CartTop'
-import { useAppSelector } from '../hooks/useAppSelector'
+import { CartBottom, CartItems, CartTop } from '../components'
 import CartEmpty from './CartEmpty'
+import { useAppSelector } from '../hooks/useAppSelector'
 
 const Cart: React.FC = () => {
     const { countPizzas, totalAmount, cartItems } = useAppSelector(

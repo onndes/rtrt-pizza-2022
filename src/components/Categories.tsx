@@ -5,7 +5,7 @@ type CategoriesTypes = {
     handleChangeCategory: (categoryIdx: number) => void
 }
 
-const Categories: React.FC<CategoriesTypes> = ({
+export const Categories: React.FC<CategoriesTypes> = ({
     activeCategory,
     handleChangeCategory,
 }) => {
@@ -35,5 +35,3 @@ const Categories: React.FC<CategoriesTypes> = ({
         </div>
     )
 }
-
-export default Categories

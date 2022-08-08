@@ -7,7 +7,7 @@ type SortProps = {
     handleChangeOrderSort: () => void
 }
 
-const Sort: React.FC<SortProps> = ({
+export const Sort: React.FC<SortProps> = ({
     sort,
     handleChangeSort,
     orderSort,
@@ -86,5 +86,3 @@ const Sort: React.FC<SortProps> = ({
         </div>
     )
 }
-
-export default Sort

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import pizzaLogo from '../assets/img/pizza-logo.svg'
 import { useAppSelector } from '../hooks/useAppSelector'
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
     const { countPizzas, totalAmount } = useAppSelector(({ cart }) => cart)
 
     return (
@@ -60,4 +60,3 @@ const Header: React.FC = () => {
     )
 }
 
-export default Header

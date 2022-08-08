@@ -8,7 +8,7 @@ type PizzaItemProps = {
     pizza: PizzaType
 }
 
-const PizzaItem: React.FC<PizzaItemProps> = ({ pizza }) => {
+export const PizzaItem: React.FC<PizzaItemProps> = ({ pizza }) => {
     const dispatch = useDispatch()
 
     const pizzasCart = useSelector(selectCartItems)
@@ -95,5 +95,3 @@ const PizzaItem: React.FC<PizzaItemProps> = ({ pizza }) => {
         </div>
     )
 }
-
-export default PizzaItem

@@ -11,7 +11,10 @@ type Search = {
     activeCategory: number
 }
 
-const Search: React.FC<Search> = ({ handleChangeCategory, activeCategory }) => {
+export const Search: React.FC<Search> = ({
+    handleChangeCategory,
+    activeCategory,
+}) => {
     const dispatch = useDispatch()
     const [inputValue, setInputValue] = React.useState('')
 
@@ -60,5 +63,3 @@ const Search: React.FC<Search> = ({ handleChangeCategory, activeCategory }) => {
         </div>
     )
 }
-
-export default Search

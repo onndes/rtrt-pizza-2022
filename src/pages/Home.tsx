@@ -2,21 +2,23 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import qs from 'qs'
 
-import Categories from '../components/Categories'
-import PizzaItem from '../components/PizzaItem/PizzaItem'
-import PizzaItemSkeleton from '../components/PizzaItem/PizzaItemSkeleton'
-import Sort from '../components/Sort'
-import Search from '../components/Search/Search'
-import { fetchPizzas } from '../redux/slices/pizzaSlice'
+import {
+    Categories,
+    PizzaItem,
+    PizzaItemSkeleton,
+    Search,
+    Sort,
+} from '../components'
 import {
     setActiveCategory,
     setFilterParams,
     setOrderSort,
     setSort,
 } from '../redux/slices/filterSlice'
-import { PizzaType } from '../@types/types'
+import { fetchPizzas } from '../redux/slices/pizzaSlice'
 import { useAppSelector } from '../hooks/useAppSelector'
 import { useAppDispatch } from '../redux/store'
+import { PizzaType } from '../@types/types'
 import { OrderSortEnum } from '../@types/enum'
 
 const Home: React.FC = () => {

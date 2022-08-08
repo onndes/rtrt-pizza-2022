@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import SuspensePreloader from '../components/SuspensePreloader'
+import { SuspensePreloader } from '../components'
 
 import MainLayout from '../layouts/MainLayout'
 import Home from './Home'

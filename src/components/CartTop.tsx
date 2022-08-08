@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import { clearCart } from '../redux/slices/cartSlice'
 
-const CartTop: React.FC = () => {
+export const CartTop: React.FC = () => {
     const dispatch = useDispatch()
 
     return (
@@ -82,5 +82,3 @@ const CartTop: React.FC = () => {
         </div>
     )
 }
-
-export default CartTop
