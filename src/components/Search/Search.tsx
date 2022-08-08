@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import debounce from 'lodash.debounce'
+import { debounce } from 'lodash'
 
 import style from './Search.module.scss'
 import deleteIcon from '../../assets/img/delete-icon.svg'

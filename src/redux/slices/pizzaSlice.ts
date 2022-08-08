@@ -1,7 +1,7 @@
-/* eslint-disable max-len */
 import axios, { AxiosError } from 'axios'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { identity, pickBy } from 'lodash'
 import { PizzaType } from '../../@types/types'
 
 type FetchPizzasParams = {
@@ -16,16 +16,21 @@ export const fetchPizzas = createAsyncThunk<PizzaType[], FetchPizzasParams>(
     async (params) => {
         const { sortName, orderSort, search, activeCategory } = params
 
-        const baseUrl = 'https://62bdb91fc5ad14c110c5676f.mockapi.io/'
-        let link = `${baseUrl}items?sortBy=${sortName}&order=${orderSort}&search=${search}`
+        const baseUrl = 'https://62bdb91fc5ad14c110c5676f.mockapi.io/items'
 
-        if (activeCategory !== 0) {
-            link += `&category=${activeCategory}`
-        }
+        const { data } = await axios.get<PizzaType[]>(baseUrl, {
+            params: pickBy(
+                {
+                    sortBy: sortName,
+                    order: orderSort,
+                    search,
+                    category: activeCategory,
+                },
+                identity
+            ),
+        })
 
-        const response = await axios.get<PizzaType[]>(link)
-
-        return response.data
+        return data
     }
 )
 
