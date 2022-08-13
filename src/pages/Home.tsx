@@ -27,9 +27,8 @@ const Home: React.FC = () => {
 
     const { pizzas, isLoading, error } = useAppSelector(({ pizza }) => pizza)
 
-    const { activeCategory, sort, orderSort, search } = useAppSelector(
-        ({ filter }) => filter
-    )
+    const { activeCategory, sort, orderSort, search } =
+        useAppSelector(({ filter }) => filter)
 
     const handleChangeCategory = (idx: number) => {
         dispatch(setActiveCategory(idx))
@@ -91,6 +90,8 @@ const Home: React.FC = () => {
 
         navigate(`?${queryString}`)
     }, [activeCategory, sort, orderSort])
+
+  
 
     return (
         <div className="container">

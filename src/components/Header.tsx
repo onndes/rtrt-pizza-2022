@@ -1,11 +1,29 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import pizzaLogo from '../assets/img/pizza-logo.svg'
 import { useAppSelector } from '../hooks/useAppSelector'
+import { setCart } from '../redux/slices/cartSlice'
 
 export const Header: React.FC = () => {
-    const { countPizzas, totalAmount } = useAppSelector(({ cart }) => cart)
+    const dispatch = useDispatch()
+    const cartPizzas = useAppSelector(({ cart }) => cart)
+    const { countPizzas, totalAmount } = cartPizzas
+    const isMounted = React.useRef(false)
+
+    React.useEffect(() => {
+        if (isMounted.current) {
+            const json = JSON.stringify(cartPizzas)
+            window.localStorage.setItem('cart', json)
+        }
+        isMounted.current = true
+    }, [countPizzas])
+
+    React.useEffect(() => {
+        const cart: string = window.localStorage.getItem('cart') || ''
+        dispatch(setCart(JSON.parse(cart)))
+    }, [])
 
     return (
         <div className="header">
@@ -59,4 +77,3 @@ export const Header: React.FC = () => {
         </div>
     )
 }
-

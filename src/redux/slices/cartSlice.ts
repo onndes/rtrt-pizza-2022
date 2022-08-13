@@ -78,6 +78,11 @@ export const cartSlice = createSlice({
             state.countPizzas -= state.cartItems[action.payload].options.count
             state.cartItems.splice(action.payload, 1)
         },
+        setCart: (state, action: PayloadAction<CartSliceState>) => {
+            state.cartItems = action.payload.cartItems
+            state.totalAmount = action.payload.totalAmount
+            state.countPizzas = action.payload.countPizzas
+        },
     },
 })
 
@@ -89,6 +94,7 @@ export const {
     addSamePizza,
     removeSamePizza,
     removePizza,
+    setCart,
 } = cartSlice.actions
 
 export default cartSlice.reducer
