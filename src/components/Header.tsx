@@ -21,8 +21,12 @@ export const Header: React.FC = () => {
     }, [countPizzas])
 
     React.useEffect(() => {
-        const cart: string = window.localStorage.getItem('cart') || ''
-        dispatch(setCart(JSON.parse(cart)))
+        try {
+            const cart: string = window.localStorage.getItem('cart') || ''
+            dispatch(setCart(JSON.parse(cart)))
+        } catch (error) {
+            dispatch(setCart({ cartItems: [], totalAmount: 0, countPizzas: 0 }))
+        }
     }, [])
 
     return (
