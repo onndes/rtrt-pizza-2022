@@ -37,6 +37,7 @@
 
     &__popup {
         position: absolute;
+        z-index: 4;
         right: 0;
         margin-top: 15px;
         background: #ffffff;
